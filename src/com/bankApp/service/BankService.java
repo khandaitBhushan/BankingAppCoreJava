@@ -4,9 +4,10 @@ import com.bankApp.entity.Account;
 import com.bankApp.exception.InsufficientBalanceException;
 import com.bankApp.exception.AccountNotFoundException;
 import com.bankApp.repository.AccountRepository;
+import com.bankApp.repository.AccountRepositoryJDBC;
 
 public class BankService {
-    AccountRepository repo = new AccountRepository();
+    AccountRepository repo = new AccountRepositoryJDBC();
 
     public void createAccount(Account ac){
         repo.save(ac);
@@ -18,14 +19,17 @@ public class BankService {
     }
 
     public Account findAccount(int id){
-        if(repo.find(id)==null)
+        Account currAccount = repo.find(id);
+        if(currAccount==null)
             throw new AccountNotFoundException("User with id :"+id+" does not exist");
-        else return repo.find(id);
+        else return currAccount;
     }
 
     public void deposit(double balance, int id){
             Account currentAccount = findAccount(id);
             currentAccount.setBalance(currentAccount.getBalance()+balance);
+            repo.update(currentAccount);
+
     }
 
     public void withdraw(double balance, int id){

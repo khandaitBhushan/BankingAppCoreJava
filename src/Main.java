@@ -63,9 +63,21 @@ public class Main {
         sc.nextLine();
         System.out.println("Enter your address : ");
         String address = sc.nextLine();
-        Account currAcc = new Account(generateId(),name,balance,accountType,address,phoneNum);
+        Account currAcc = new Account();
+
+        currAcc.setBalance(balance);
+        currAcc.setAccountType(accountType);
+        currAcc.setAddress(address);
+        currAcc.setName(name);
+        currAcc.setPhoneNo(phoneNum);
+
         service.createAccount(currAcc);
+
         System.out.println("Account creation successfully\n"); // a person can have mul accounts
+        System.out.println();
+        System.out.println("_____________ Your Account details _____________");
+        System.out.println(currAcc);
+        System.out.println();
     }
     public static void getBalance(){
         System.out.println("Enter account id : ");

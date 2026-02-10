@@ -40,6 +40,7 @@ public class BankService {
             }
             currentBalance -= balance;
             currentAccount.setBalance(currentBalance);
+            repo.update(currentAccount);
     }
 
     public double getBalance(int id){
